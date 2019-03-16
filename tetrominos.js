@@ -65,8 +65,8 @@ function TetrominoCreator(shapeOf) {
         for(var i = 0; i < this.blocks.length; ++i)
             this.blocks[i].right();
     };
-    this.rotationCompleted = function() {
-        this.rotation = (this.rotation + 1)%4;
+    this.nextRotation = function() {
+        return (this.rotation + 1)%4;
     }
     this.newRotated = function(){
         var newOne;
@@ -95,6 +95,8 @@ function TetrominoCreator(shapeOf) {
                 }
             break;
             case "J":
+               // newOne = new TetrominoCreator("J");
+                //switch(this.rotated[(this.rotation+1)%4])
             break;
             case "L":
             break;
@@ -104,23 +106,8 @@ function TetrominoCreator(shapeOf) {
             break;
             case "Z":
             break;
-            default:
-                newOne = this;   
+
             }
-        }    
+            return newOne;        //RETURNS ROTATED ONE!
     }
-
-        //RETURNS ROTATED ONE!
-    }
-   
-
 }
-/*
-
-
-
-
-
-
-
-*/

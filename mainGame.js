@@ -62,20 +62,23 @@ function GameCreator() {
             this.theTetro.down();
     };
     this.up =  function() {//ROTATE
+        if(this.frame%4 != 0)
+            return ;
         var inThetetro = false;
         var itCantRotate = true;
         var newOne = this.theTetro.newRotated();
         for(i in newOne.blocks){
             inThetetro = false;
-            for(j in theTetro.blocks)
-                if(theTetro.blocks[j].x == newOne.blocks[j].x && theTetro.blocks[j].y == newOne.blocks[j].y)
+            for(j in this.theTetro.blocks)
+                if(this.theTetro.blocks[j].x == newOne.blocks[j].x && this.theTetro.blocks[j].y == newOne.blocks[j].y)
                     inThetetro = true;
             if(!inThetetro)
-                itCantRotate = occupied(newOne.blocks[i].x, newOne.blocks[i].y);
+                itCantRotate = this.occupied(newOne.blocks[i].x, newOne.blocks[i].y);
         }
         if(!itCantRotate){
             this.tetromino.splice(this.tetromino.length - 1, 1);
-            this.tetromino[this.tetromino.length] = newOne;            
+            newOne.rotation = this.theTetro.nextRotation();
+            this.tetromino[this.tetromino.length] = newOne;      
         }
         //CREATE A NEW TETROMINO AND SEND NON THETETRO BLOCKS TO OCCUPIED
     };
