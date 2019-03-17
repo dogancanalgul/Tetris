@@ -25,17 +25,24 @@ function GameCreator() {
         this.checkRows();
     };
     this.addRandom = function() {
-        this.tetromino[this.tetromino.length] = new TetrominoCreator(this.letters[/*Math.floor(Math.random() * 7)*/0]);
+       // this.tetromino[this.tetromino.length] = new TetrominoCreator(this.letters[Math.floor(Math.random() * 7)]);
+        this.tetromino[this.tetromino.length] = new TetrominoCreator("I");
         this.theTetro = this.tetromino[this.tetromino.length - 1];
     };
     this.checkRows = function() {
         var count = 0, i = 0;
         var fullRow = false;
+        var stillMoving = false;
         for(; i < 20; ++i){
             count = 0;
-            for(var j = 0; j < 10; ++j)
-                if(this.occupied(j, i))
+            for(var j = 0; j < 10; ++j){
+                stillMoving = false;
+                for(k in this.theTetro.blocks)
+                    if(this.theTetro.blocks[k].x == j && this.theTetro.blocks[k].y == i)
+                        stillMoving = true;         
+                if(this.occupied(j, i) && !stillMoving)
                     ++count;
+            }
             if(10 == count){
                 fullRow = true;
                 break;
@@ -57,7 +64,7 @@ function GameCreator() {
             return true;
         return false;
     };
-    this.goDown = function() {//FIX THIS
+    this.goDown = function() {
         if(!this.doIStopTetro())
             this.theTetro.down();
     };
@@ -81,7 +88,6 @@ function GameCreator() {
             this.tetromino[this.tetromino.length] = newOne;     
             this.theTetro = newOne;
         }
-        //CREATE A NEW TETROMINO AND SEND NON THETETRO BLOCKS TO OCCUPIED
     };
     this.down = function(){ 
         if(!this.doIStopTetro() && this.frame%2 == 0)

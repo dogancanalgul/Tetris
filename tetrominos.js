@@ -69,15 +69,18 @@ function TetrominoCreator(shapeOf) {
         return (this.rotation + 1)%4;
     }
     this.newRotated = function(){
-        var newOne;
+        var newOne = new TetrominoCreator(this.shape);
+        t = 1;
+        for(i in newOne.blocks){
+            newOne.blocks[i].y = this.blocks[i].y;
+            newOne.blocks[i].x = this.blocks[i].x;
+        }
         switch(this.shape){
             case "I":
-                newOne = new TetrominoCreator("I");
                 for(i in newOne.blocks){
                     newOne.blocks[i].y = this.blocks[2].y;
                     newOne.blocks[i].x = this.blocks[2].x;
                 }
-                t = 1;
                 switch(this.rotated[(this.rotation+1)%4]){
                     case "REVERSE":
                         t = -1;
@@ -95,16 +98,112 @@ function TetrominoCreator(shapeOf) {
                 }
             break;
             case "J":
-               // newOne = new TetrominoCreator("J");
-                //switch(this.rotated[(this.rotation+1)%4])
+                switch(this.rotated[(this.rotation+1)%4]){
+                    case "ROTATED_LEFT":
+                     t = -1;
+                    case "ROTATED_RIGHT":
+                        newOne.blocks[0].x = this.blocks[2].x + t;
+                        newOne.blocks[1].x = this.blocks[2].x; 
+                        newOne.blocks[1].y = this.blocks[2].y - t; 
+                        newOne.blocks[3].x = this.blocks[2].x; 
+                        newOne.blocks[3].y = this.blocks[2].y + t; 
+                    break;
+                    case "REVERSE":
+                    t = -1;
+                    case "NORMAL":
+                        newOne.blocks[0].y = this.blocks[2].y - t;
+                        newOne.blocks[1].y = this.blocks[2].y;
+                        newOne.blocks[1].x = this.blocks[2].x - t;
+                        newOne.blocks[3].x = this.blocks[2].x + t; 
+                        newOne.blocks[3].y = this.blocks[2].y;
+                        
+                }
             break;
             case "L":
+                switch(this.rotated[(this.rotation+1)%4]){
+                    case "ROTATED_LEFT":
+                        t = -1;
+                    case "ROTATED_RIGHT":
+                        newOne.blocks[0].y = this.blocks[1].y - t;
+                        newOne.blocks[0].x = this.blocks[1].x;
+                        newOne.blocks[2].x = this.blocks[1].x;
+                        newOne.blocks[2].y = this.blocks[1].y + t;
+                        newOne.blocks[3].y = this.blocks[1].y + t;
+                    break;
+                    case "REVERSE":
+                        t = -1;
+                    case "NORMAL":
+                        newOne.blocks[0].y = this.blocks[1].y;
+                        newOne.blocks[0].x = this.blocks[1].x - t;
+                        newOne.blocks[2].x = this.blocks[1].x + t;
+                        newOne.blocks[2].y = this.blocks[1].y;
+                        newOne.blocks[3].x = this.blocks[1].x + t;
+                }
             break;
             case "S":
+                switch(this.rotated[(this.rotation+1)%4]){
+                    case "ROTATED_LEFT":
+                        t = -1;
+                    case "ROTATED_RIGHT":
+                        newOne.blocks[0].y = this.blocks[1].y - t;
+                        newOne.blocks[0].x = this.blocks[1].x;
+                        newOne.blocks[2].x = this.blocks[1].x + t;
+                        newOne.blocks[2].y = this.blocks[1].y;
+                        newOne.blocks[3].y = this.blocks[1].y + t;
+                    break;
+                    case "REVERSE":
+                        t = -1;
+                    case "NORMAL":
+                        newOne.blocks[0].y = this.blocks[1].y;
+                        newOne.blocks[0].x = this.blocks[1].x - t;
+                        newOne.blocks[2].x = this.blocks[1].x;
+                        newOne.blocks[2].y = this.blocks[1].y - t;
+                        newOne.blocks[3].x = this.blocks[1].x + t;
+                }
             break;
             case "T":
+                switch(this.rotated[(this.rotation+1)%4]){
+                    case "ROTATED_LEFT":
+                        t = -1;
+                    case "ROTATED_RIGHT":
+                        newOne.blocks[0].x = this.blocks[1].x;
+                        newOne.blocks[0].y = this.blocks[1].y - t;
+                        newOne.blocks[2].x = this.blocks[1].x + t;
+                        newOne.blocks[2].y = this.blocks[1].y;
+                        newOne.blocks[3].x = this.blocks[1].x;
+                        newOne.blocks[3].y = this.blocks[1].y + t;
+                    break;
+                    case "REVERSE":
+                        t = -1;
+                    case "NORMAL":
+                        newOne.blocks[0].x = this.blocks[1].x - t;
+                        newOne.blocks[0].y = this.blocks[1].y;
+                        newOne.blocks[2].x = this.blocks[1].x;
+                        newOne.blocks[2].y = this.blocks[1].y - t;
+                        newOne.blocks[3].x = this.blocks[1].x + t;
+                        newOne.blocks[3].y = this.blocks[1].y;       
+                }
             break;
             case "Z":
+                switch(this.rotated[(this.rotation+1)%4]){
+                    case "ROTATED_LEFT":
+                        t = -1;
+                    case "ROTATED_RIGHT":
+                        newOne.blocks[0].x = this.blocks[2].x + t;
+                        newOne.blocks[1].x = this.blocks[2].x + t;
+                        newOne.blocks[1].y = this.blocks[2].y;
+                        newOne.blocks[3].x = this.blocks[2].x;
+                        newOne.blocks[3].y = this.blocks[2].y + t;
+                    break;
+                    case "REVERSE":
+                        t = -1;
+                    case "NORMAL":
+                        newOne.blocks[0].y = this.blocks[2].y - t;
+                        newOne.blocks[1].x = this.blocks[2].x;
+                        newOne.blocks[1].y = this.blocks[2].y - t;
+                        newOne.blocks[3].x = this.blocks[2].x + t;
+                        newOne.blocks[3].y = this.blocks[2].y;       
+                }
             break;
 
             }
