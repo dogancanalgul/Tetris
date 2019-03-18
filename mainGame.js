@@ -4,11 +4,16 @@ function GameCreator() {
     this.frame = 0;
     this.theTetro; //the one in control.(i.e last one created.)
     this.continium = false;
+    this.holds;
+    this.score;
     this.init = function() {
+        this.holds = this.letters[Math.floor(Math.random() * 7)];
         this.addRandom();
     }
     this.start = function() {
         continium = true;
+        var d = new Date();
+        this.score = d.getTime();
     }
     this.draw = function() {
         if(!continium)
@@ -20,13 +25,26 @@ function GameCreator() {
             this.frame = 0;
         }
         ++this.frame;
-        console.log(this.tetromino);
         this.doIStopTetro();
         this.checkRows();
+        this.showHold();
     };
+    this.showHold = function()  {
+        tempTetro = new TetrominoCreator(this.holds);
+        for(i in tempTetro.blocks){
+            tempTetro.blocks[i].size = 20;
+            tempTetro.blocks[i].x += 17.65;
+            tempTetro.blocks[i].y += 4;
+        }
+        fill(125, 125, 125);
+        rect(400, 50, 100, 80);
+        tempTetro.draw();
+    }
     this.addRandom = function() {
-       this.tetromino[this.tetromino.length] = new TetrominoCreator(this.letters[Math.floor(Math.random() * 7)]);
-        this.theTetro = this.tetromino[this.tetromino.length - 1];
+        
+       this.tetromino[this.tetromino.length] = new TetrominoCreator(this.holds);
+       this.holds = this.letters[Math.floor(Math.random() * 7)];
+       this.theTetro = this.tetromino[this.tetromino.length - 1];
     };
     this.checkRows = function() {
         var count = 0, i = 0;

@@ -8,7 +8,7 @@ function BlockCreator(x , y, r, g, b) {
         this.b = b;
     this.draw = function() {
         fill(this.r, this.g, this.b);
-        rect(this.x*40, this.y*40, this.size, this.size);
+        rect(this.x*this.size, this.y*this.size, this.size, this.size);
         noFill();
     }
     this.up =  function() {

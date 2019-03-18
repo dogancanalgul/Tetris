@@ -1,8 +1,10 @@
 var arrows = [];// 0 UP 1 DOWN 2 LEFT 3 RIGHT
 var gameState = 2;
 var mousePressed = false;
+var FinalScore;
+
 function setup() {
-    createCanvas(401, 801);
+    createCanvas(501, 801);
     for(var i = 0; i < 4; ++i)
         arrows[i] = false;
     frameRate(60);
@@ -10,8 +12,9 @@ function setup() {
 }
 
 function draw() {
-    background(255);
-    rect(0, 0, width-1, height-1);//BORDERS
+    background(255)
+    fill(153, 230, 255);
+    rect(0, 0, 400, 800);//BORDERS
     if(gameState == 0){
         gameOver();
     }else if(gameState == 1){
@@ -24,13 +27,16 @@ function gameOver(){
     background(255, 0, 0);
     textSize(32);
     text("Game Over!", width/2 - 100, height/2);
+    text("Score :" + FinalScore,  width/2 - 100,height/2 + 100)
     fill(0, 0, 0)
 }
 function playGame(){
-    mainGame.start();
     rectMove();
     mainGame.draw();
     if(mainGame.isGameOver()){
+        var d = new Date();
+        console.log(d.getTime() + " + " + mainGame.score + " = " /*+ d.getTime() - mainGame.score*/);
+        FinalScore = d.getTime() - mainGame.score ;
         delete mainGame;
         gameState = 0;
     }
@@ -45,8 +51,10 @@ function menu(){
     if(mousePressed){
         mousePressed = false;
         if(mouseX <= width/2 + 100 && mouseX >= width/2 - 100 &&
-            mouseY <= height/2 - 50&& mouseY >= height/2 - 100)
+            mouseY <= height/2 - 50&& mouseY >= height/2 - 100){
             gameState = 1;
+            mainGame.start();
+        }
     }
 
 }
