@@ -25,8 +25,7 @@ function GameCreator() {
         this.checkRows();
     };
     this.addRandom = function() {
-       // this.tetromino[this.tetromino.length] = new TetrominoCreator(this.letters[Math.floor(Math.random() * 7)]);
-        this.tetromino[this.tetromino.length] = new TetrominoCreator("I");
+       this.tetromino[this.tetromino.length] = new TetrominoCreator(this.letters[Math.floor(Math.random() * 7)]);
         this.theTetro = this.tetromino[this.tetromino.length - 1];
     };
     this.checkRows = function() {
